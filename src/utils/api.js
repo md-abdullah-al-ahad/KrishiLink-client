@@ -38,10 +38,11 @@ export const getAllCrops = async () => {
 export const getLatestCrops = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/crops/latest`);
-    return await handleResponse(response);
+    const data = await handleResponse(response);
+    return data || [];
   } catch (error) {
-    toast.error(error.message || "Failed to fetch latest crops");
-    throw error;
+    console.error("Failed to fetch latest crops:", error);
+    return [];
   }
 };
 
