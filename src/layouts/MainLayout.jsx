@@ -1,11 +1,15 @@
 import { Outlet } from "react-router";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 const MainLayout = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <Outlet />
+      <main className="grow">
+        <Outlet />
+      </main>
+      <Footer />
     </div>
   );
 };
