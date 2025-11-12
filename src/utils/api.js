@@ -28,10 +28,11 @@ export const createUser = async (userData) => {
 export const getAllCrops = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/crops`);
-    return await handleResponse(response);
+    const data = await handleResponse(response);
+    return data || [];
   } catch (error) {
-    toast.error(error.message || "Failed to fetch crops");
-    throw error;
+    console.error("Failed to fetch crops:", error);
+    return [];
   }
 };
 
