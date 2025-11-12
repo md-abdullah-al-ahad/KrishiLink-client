@@ -1,6 +1,7 @@
 import Hero from "../components/home/Hero";
 import HowItWorks from "../components/home/HowItWorks";
 import LatestCrops from "../components/home/LatestCrops";
+import AgroNews from "../components/home/AgroNews";
 
 const Home = () => {
   return (
@@ -83,6 +84,7 @@ const Home = () => {
       </div>
       <HowItWorks />
       <LatestCrops />
+      <AgroNews />
     </div>
   );
 };
