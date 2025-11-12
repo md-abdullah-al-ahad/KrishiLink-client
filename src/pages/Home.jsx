@@ -1,4 +1,5 @@
 import Hero from "../components/home/Hero";
+import LatestCrops from "../components/home/LatestCrops";
 
 const Home = () => {
   return (
@@ -79,6 +80,7 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <LatestCrops />
     </div>
   );
 };
