@@ -1,58 +1,164 @@
-const API_URL = import.meta.env.VITE_API_URL;
+import toast from "react-hot-toast";
+import { API_BASE_URL } from "../config/api";
 
-export const saveUserToDatabase = async (userData) => {
+const handleResponse = async (response) => {
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.message || "Something went wrong");
+  }
+  return response.json();
+};
+
+export const createUser = async (userData) => {
   try {
-    const response = await fetch(`${API_URL}/users`, {
+    const response = await fetch(`${API_BASE_URL}/users`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(userData),
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to save user to database");
-    }
-
-    return await response.json();
+    return await handleResponse(response);
   } catch (error) {
-    console.error("Error saving user:", error);
+    toast.error(error.message || "Failed to create user");
     throw error;
   }
 };
 
-export const updateUserInDatabase = async (email, userData) => {
+export const getAllCrops = async () => {
   try {
-    const response = await fetch(`${API_URL}/users/${email}`, {
-      method: "PATCH",
+    const response = await fetch(`${API_BASE_URL}/crops`);
+    return await handleResponse(response);
+  } catch (error) {
+    toast.error(error.message || "Failed to fetch crops");
+    throw error;
+  }
+};
+
+export const getLatestCrops = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/crops/latest`);
+    return await handleResponse(response);
+  } catch (error) {
+    toast.error(error.message || "Failed to fetch latest crops");
+    throw error;
+  }
+};
+
+export const getCropById = async (id) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/crops/${id}`);
+    return await handleResponse(response);
+  } catch (error) {
+    toast.error(error.message || "Failed to fetch crop details");
+    throw error;
+  }
+};
+
+export const createCrop = async (cropData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/crops`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(userData),
+      body: JSON.stringify(cropData),
     });
-
-    if (!response.ok) {
-      throw new Error("Failed to update user in database");
-    }
-
-    return await response.json();
+    const result = await handleResponse(response);
+    toast.success("Crop created successfully!");
+    return result;
   } catch (error) {
-    console.error("Error updating user:", error);
+    toast.error(error.message || "Failed to create crop");
     throw error;
   }
 };
 
-export const getUserFromDatabase = async (email) => {
+export const getMyCrops = async (email) => {
   try {
-    const response = await fetch(`${API_URL}/users/${email}`);
-
-    if (!response.ok) {
-      throw new Error("Failed to fetch user from database");
-    }
-
-    return await response.json();
+    const response = await fetch(`${API_BASE_URL}/my-crops/${email}`);
+    return await handleResponse(response);
   } catch (error) {
-    console.error("Error fetching user:", error);
+    toast.error(error.message || "Failed to fetch your crops");
     throw error;
   }
 };
+
+export const updateCrop = async (id, cropData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/crops/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(cropData),
+    });
+    const result = await handleResponse(response);
+    toast.success("Crop updated successfully!");
+    return result;
+  } catch (error) {
+    toast.error(error.message || "Failed to update crop");
+    throw error;
+  }
+};
+
+export const deleteCrop = async (id) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/crops/${id}`, {
+      method: "DELETE",
+    });
+    const result = await handleResponse(response);
+    toast.success("Crop deleted successfully!");
+    return result;
+  } catch (error) {
+    toast.error(error.message || "Failed to delete crop");
+    throw error;
+  }
+};
+
+export const expressInterest = async (interestData) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/interests`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(interestData),
+    });
+    const result = await handleResponse(response);
+    toast.success("Interest expressed successfully!");
+    return result;
+  } catch (error) {
+    toast.error(error.message || "Failed to express interest");
+    throw error;
+  }
+};
+
+export const getMyInterests = async (email) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/my-interests/${email}`);
+    return await handleResponse(response);
+  } catch (error) {
+    toast.error(error.message || "Failed to fetch your interests");
+    throw error;
+  }
+};
+
+export const updateInterestStatus = async (interestId, cropId, status) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/interests/update`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ interestId, cropId, status }),
+    });
+    const result = await handleResponse(response);
+    toast.success("Interest status updated successfully!");
+    return result;
+  } catch (error) {
+    toast.error(error.message || "Failed to update interest status");
+    throw error;
+  }
+};
+
+export const saveUserToDatabase = createUser;
