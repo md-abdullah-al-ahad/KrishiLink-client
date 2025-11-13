@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useAuth } from "../hooks/useAuth";
 import { getAuthErrorMessage } from "../utils/validation";
+import { saveUserToDatabase } from "../utils/api";
 
 const Login = () => {
   const {
@@ -36,7 +37,18 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await signInWithGoogle();
+      const result = await signInWithGoogle();
+
+      // Save user to database (if new user, it will be added; if existing, backend handles it)
+      const userData = {
+        name: result.user.displayName || "",
+        email: result.user.email,
+        photoURL: result.user.photoURL || "",
+        createdAt: new Date().toISOString(),
+      };
+
+      await saveUserToDatabase(userData);
+
       toast.success("Welcome back! 🌱", {
         duration: 3000,
         style: {

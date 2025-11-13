@@ -2,30 +2,30 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      name: "Rajesh Kumar",
-      location: "Punjab",
-      image: "https://randomuser.me/api/portraits/men/32.jpg",
+      name: "Abdul Karim",
+      location: "Rajshahi",
+      image: "https://xsgames.co/randomusers/assets/avatars/male/1.jpg",
       quote:
         "KrishiLink helped me connect directly with buyers for my wheat crop. I eliminated middlemen and increased my profits by 30%. This platform is a game-changer for small farmers like me!",
       crop: "Wheat Farmer",
     },
     {
       id: 2,
-      name: "Priya Sharma",
-      location: "Maharashtra",
-      image: "https://randomuser.me/api/portraits/women/44.jpg",
+      name: "Fatema Begum",
+      location: "Dhaka",
+      image: "https://xsgames.co/randomusers/assets/avatars/female/12.jpg",
       quote:
         "I found quality organic vegetables through KrishiLink for my restaurant. The direct connection with farmers ensures freshness and supports local agriculture. Highly recommended!",
       crop: "Restaurant Owner",
     },
     {
       id: 3,
-      name: "Arjun Patel",
-      location: "Gujarat",
-      image: "https://randomuser.me/api/portraits/men/45.jpg",
+      name: "Mohammad Hossain",
+      location: "Mymensingh",
+      image: "https://xsgames.co/randomusers/assets/avatars/male/25.jpg",
       quote:
-        "As a young farmer, KrishiLink gave me access to modern farming insights and a network of experienced farmers. I learned new techniques and sold my entire cotton harvest within weeks!",
-      crop: "Cotton Farmer",
+        "As a young farmer, KrishiLink gave me access to modern farming insights and a network of experienced farmers. I learned new techniques and sold my entire rice harvest within weeks!",
+      crop: "Rice Farmer",
     },
   ];
 
