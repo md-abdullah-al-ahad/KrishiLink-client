@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { getCropById } from "../utils/api";
+import InterestForm from "../components/InterestForm";
 
 const CropDetails = () => {
   const { id } = useParams();
@@ -8,21 +9,21 @@ const CropDetails = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchCrop = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        const data = await getCropById(id);
-        setCrop(data);
-      } catch (err) {
-        console.error("Error fetching crop:", err);
-        setError(err.message || "Failed to load crop details");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchCrop = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      const data = await getCropById(id);
+      setCrop(data);
+    } catch (err) {
+      console.error("Error fetching crop:", err);
+      setError(err.message || "Failed to load crop details");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchCrop();
   }, [id]);
 
@@ -279,6 +280,8 @@ const CropDetails = () => {
             </p>
           </div>
         </div>
+
+        <InterestForm crop={crop} onInterestSent={fetchCrop} />
       </div>
     </div>
   );
