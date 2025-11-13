@@ -15,7 +15,18 @@ const ReceivedInterests = ({ crop, onInterestUpdated }) => {
   const handleUpdateStatus = async (interestId, status) => {
     try {
       setUpdatingId(interestId);
-      await updateInterestStatus(interestId, crop._id, status);
+
+      // Find the interest to get the quantity
+      const interest = crop.interests.find((i) => i._id === interestId);
+      const interestQuantity = interest?.quantity || 0;
+
+      await updateInterestStatus(
+        interestId,
+        crop._id,
+        status,
+        interestQuantity
+      );
+
       if (onInterestUpdated) {
         onInterestUpdated();
       }

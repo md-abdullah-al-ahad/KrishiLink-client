@@ -154,7 +154,7 @@ const MyInterests = () => {
                     <td>
                       <Link
                         to={`/crops/${interest.cropId}`}
-                        className="link link-primary font-semibold hover:underline"
+                        className="text-blue-600 hover:text-blue-800 underline cursor-pointer font-semibold"
                       >
                         {interest.cropName}
                       </Link>
@@ -199,7 +199,7 @@ const MyInterests = () => {
                   <div className="flex justify-between items-start mb-3">
                     <Link
                       to={`/crops/${interest.cropId}`}
-                      className="link link-primary font-bold text-lg hover:underline"
+                      className="text-blue-600 hover:text-blue-800 underline cursor-pointer font-bold text-lg"
                     >
                       {interest.cropName}
                     </Link>

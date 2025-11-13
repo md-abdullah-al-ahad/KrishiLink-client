@@ -78,6 +78,12 @@ const InterestForm = ({ crop, onInterestSent }) => {
   }
 
   const onSubmitForm = (data) => {
+    // Validate quantity
+    if (data.quantity < 1) {
+      toast.error("Quantity must be at least 1");
+      return;
+    }
+
     setFormData(data);
     setShowModal(true);
   };
@@ -138,6 +144,7 @@ const InterestForm = ({ crop, onInterestSent }) => {
               </label>
               <input
                 type="number"
+                min="1"
                 placeholder="Enter quantity"
                 className={`input input-bordered ${
                   errors.quantity ? "input-error" : ""
@@ -191,7 +198,7 @@ const InterestForm = ({ crop, onInterestSent }) => {
             <button
               type="submit"
               className="btn btn-primary w-full btn-lg gap-2"
-              disabled={isSubmitting}
+              disabled={isSubmitting || quantity < 1}
             >
               {isSubmitting ? (
                 <>

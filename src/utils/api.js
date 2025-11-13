@@ -145,17 +145,37 @@ export const getMyInterests = async (email) => {
   }
 };
 
-export const updateInterestStatus = async (interestId, cropId, status) => {
+export const updateInterestStatus = async (
+  interestId,
+  cropId,
+  status,
+  quantity = 0
+) => {
   try {
     const response = await fetch(`${API_BASE_URL}/interests/update`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ interestId, cropId, status }),
+      body: JSON.stringify({ interestId, cropId, status, quantity }),
     });
     const result = await handleResponse(response);
-    toast.success("Interest status updated successfully!");
+
+    if (status === "accepted") {
+      toast.success(
+        `Interest accepted! Crop quantity reduced by ${quantity} units.`,
+        {
+          duration: 4000,
+        }
+      );
+    } else if (status === "rejected") {
+      toast.error("Interest rejected.", {
+        duration: 3000,
+      });
+    } else {
+      toast.success("Interest status updated successfully!");
+    }
+
     return result;
   } catch (error) {
     toast.error(error.message || "Failed to update interest status");
